@@ -1,3 +1,6 @@
+https://docs.google.com/document/d/1-h4Vx82vg1_YqpcHjfmthtv7a-Y9m7coMf683tZnU60/edit?addon_store&tab=t.0
+
+
 What are the two terminals that are opened when i do npx run android in react-native
 ChatGPT said:
 ChatGPT
