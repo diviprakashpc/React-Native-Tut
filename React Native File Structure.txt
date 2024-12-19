@@ -1,0 +1,301 @@
+Key files : 
+
+1) __tests__ : Used for Testers
+
+====================================================================================================
+
+2) .bundle : These are configuration files and we never touch this. ( Remember how Metro creates the bundle )
+
+====================================================================================================
+
+3) android / ios : The code we write in JS is moved to android and ios folder. It is not webview app, it is proper full fledged app.
+
+    3.1 Android : 95% we dont go into this folder. It is there so all the configurations can be linked via your react native app and all works fine.
+
+    build.gradle : Build version, targeteed sdk version, dependencies. Sometimes we add manually dependencies here.
+
+    local.properties : We create manually if not create automatic. Provide sdk path. 
+    Example :
+    sdk.dir = /Users/apple/Library/Android/sdk
+
+    We never touch Android files. Everything is linked through our app.js. All the things are fetched into architecture.
+
+
+
+    3.2 IOS : Majorly we will be touching 
+
+    Podfile : Podfile in the world of Ios, is file where we install all dependencies and new packages.
+
+====================================================================================================
+
+
+4) node_modules : Dependencies are present in node_modules. And if issue you face try removing node_modules -> npm install. And then try.
+
+====================================================================================================
+
+5) .watchmanconfig : The .watchmanconfig file in a React Native project configures Watchman, a tool used to monitor file changes efficiently. This helps improve the performance of the Metro bundler by quickly detecting file changes without needing to poll the filesystem, which can be slower and less efficient. The .watchmanconfig file allows developers to customize Watchman settings, such as specifying which files or directories to ignore, thereby optimizing the development process and ensuring that changes are handled promptly and accurately. This setup is particularly useful in large projects or in environments where files are frequently updated. (GPT)
+
+-> Use Case of .watchmanconfig in React Native: (GPT)
+
+1. Improving Efficiency: React Native uses Metro bundler to package the JavaScript code. Metro relies on Watchman to efficiently monitor changes in the project's files. Without Watchman, Metro would need to poll the file system to detect changes, which is less efficient and can be slower, especially in large projects.
+
+2. Custom Configuration: The .watchmanconfig file allows developers to specify custom settings for how Watchman operates within the React Native project. This configuration can include:
+
+Ignoring Files: To avoid unnecessary processing, developers can configure Watchman to ignore certain directories or file types that do not affect the build or are not necessary for reloads, such as node_modules or temporary directories.
+
+Setting Watch Limits: To optimize performance, especially in larger projects, developers might set limits on how many files Watchman should watch or how deep into directory trees it should go.
+
+3.Cross-Platform Consistency: React Native aims to provide a seamless development experience across different operating systems. Watchman helps standardize file watching across these environments
+
+====================================================================================================
+6) app.json : This is where all the files are linked. Android takes name of application from here. Ios takes name of application from here. Major configuration file.
+
+
+The app.json file in a React Native project holds configuration details that define settings for both the application itself and how it integrates with external services and platforms. Here’s a brief overview of its uses and what you might typically find within this file:
+
+=> Purpose of app.json
+
+1. Application Configuration: app.json stores various metadata and configuration settings for your React Native app. This metadata can include the app name, version, description, and more specific settings depending on the platform (iOS or Android).
+
+2. Platform-specific Settings: This file allows you to define platform-specific options in a structured format, which can be particularly useful when your application needs to behave differently or have different settings on iOS versus Android.
+
+3. Integration with Services: For projects that use Expo (a framework and platform for universal React applications), app.json is crucial for configuring Expo-specific settings. It includes details needed by Expo during the build process, such as icons, splash screens, orientation, and SDK version.
+
+=> Common Fields in app.json
+
+name: The name of your application as it appears both within the Expo app and on the home screen after being installed on a device.
+
+
+displayName: The name displayed on the home screen and elsewhere in the OS (such as in notifications).
+
+expo: An object that holds various Expo-specific settings:
+    sdkVersion: Specifies the Expo SDK version.
+    icon: Path to an image file that will be used as the app icon.
+    splash: Configuration for the splash screen, including image, background color, and resize mode.
+    privacy: Indicates whether the app is public or unlisted on Expo's project pages.
+    platforms: Defines which platforms (iOS, Android, web) the app will run on.
+    version: Specifies the version of the application.
+    orientation: Determines whether the app launches in portrait or landscape orientation.
+    ios and android: Objects that contain platform-specific settings like bundle identifiers, package names, config for Google Maps API, permissions, etc.
+
+
+In summary, app.json is an essential file for React Native apps, especially those built with Expo, as it provides a centralized place to manage application settings and configurations across different platforms. This file helps ensure that your app has all the necessary metadata and behaves consistently according to the configurations you define.
+
+
+====================================================================================================
+
+7) babel.config.js : 
+
+Combines all the files and makes them one file available to everyone.
+
+The babel.config.js file in a React Native project is crucial for configuring Babel, a JavaScript compiler used extensively in modern JavaScript environments. This file defines how Babel should transform your JavaScript code, enabling the use of newer JavaScript features that may not be supported by older JavaScript engines or environments.(Gpt)
+
+=> Purpose of babel.config.js
+
+Code Transformation: Babel transforms your JavaScript code into a backward-compatible version suitable for older browsers or environments. In the context of React Native, Babel ensures that your JavaScript is compatible with the JavaScript runtime used by the platform, such as JavaScriptCore in iOS.
+
+Enable JavaScript Features: Babel allows you to use next-generation JavaScript features by transforming them into older syntax that can be executed in current environments. This includes features from ES6, ES7, and beyond, like arrow functions, async/await, and class properties.
+
+JSX Support: Babel transforms JSX, the syntax used for writing UI components in React, into regular JavaScript that browsers can understand.
+
+Plugin and Preset Configuration: Through the use of plugins and presets, you can extend Babel’s capabilities. Presets are collections of plugins that enable specific language features or support for particular environments.
+
+
+=> Common Settings in babel.config.js
+
+Presets: This might include @babel/preset-env for determining the transformations needed based on the JavaScript features you are using, and @babel/preset-react for enabling support for JSX.
+
+Plugins: Specific transformations not included in presets can be enabled with plugins. For instance, you might use plugins to support newer ECMAScript features or experimental JavaScript features.
+
+Environment Specific Configuration: Babel allows you to specify different configurations for different environments, such as development, test, and production. This can help optimize the build size and performance.
+
+Exmaple : 
+
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
+    '@babel/plugin-syntax-dynamic-import',
+  ],
+  env: {
+    production: {
+      plugins: [
+        'react-native-paper/babel', // An example plugin specific to an environment
+      ],
+    },
+  },
+};
+
+Presets: The module:metro-react-native-babel-preset includes the Babel presets and plugins needed to compile a React Native app. It’s specifically tailored for the React Native environment and Metro bundler compatibility.
+
+Plugins: This configuration adds support for class properties, decorators, and dynamic imports. Each plugin is configured to ensure compatibility and optimal performance.
+
+Environment Configuration: In the production environment, additional plugins might be added to optimize the code further or add support for specific libraries like react-native-paper.
+
+
+In summary, babel.config.js is a fundamental part of a React Native project, defining how your JavaScript code is transformed to ensure it runs efficiently and reliably on various platforms supported by React Native. This file gives developers control over the language features and optimizations that Babel should apply, making it an essential tool for modern JavaScript development.
+
+
+
+====================================================================================================
+
+8) Gemfile : Majorly for cocopods and ios development
+
+The Gemfile is a configuration file used by Bundler, a dependency management tool in Ruby. While typically not part of a standard React Native project, a Gemfile might be present in projects that include native iOS code and use Ruby-based tools, such as CocoaPods, for managing iOS dependencies. Here’s an explanation of how Gemfile is used and why it might be included in some React Native projects:
+
+=> Purpose of Gemfile
+Dependency Management: The primary role of the Gemfile is to specify the Ruby gems (libraries) that the project depends on. This includes versions and sources from which the gems should be fetched, ensuring that every developer working on the project uses the same versions of the gems.
+
+Integration with CocoaPods: In the context of React Native, if the project includes iOS components, Gemfile may be used to manage the Ruby gems related to these components, primarily CocoaPods. CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects, and it is often used to integrate libraries and frameworks into a React Native iOS project.
+
+=> Common Entries in a Gemfile
+CocoaPods: This gem is crucial for iOS development as it manages library dependencies for your Xcode projects.
+Sources: Typically, the source for Ruby gems is RubyGems.org, but other sources can be specified if needed.
+
+Example Gemfile
+Here’s an example of what a Gemfile might look like in a React Native project that includes native iOS code:
+
+source 'https://rubygems.org'
+
+gem 'cocoapods', '~> 1.10'
+
+# Optional: use this to lock the Ruby version for developers
+ruby '2.6.3'
+
+
+->Explanation
+Source: Defines where to fetch the gems. https://rubygems.org is the default RubyGems repository.
+
+Gem: The cocoapods gem is specified with a version constraint (~> 1.10), ensuring compatibility and stability across development environments.
+
+Ruby Version: Optionally, a specific Ruby version can be specified to avoid issues related to version discrepancies among developers.
+
+=>How Gemfile Works
+
+When you have a Gemfile in your project:
+
+
+Running bundle install: Developers run this command in the terminal from the project directory. Bundler reads the Gemfile, resolves the dependencies, and installs them.
+Locking Dependencies: After resolving and installing the gems, Bundler generates a Gemfile.lock file. This file locks the versions of all the gems and their dependencies, ensuring that subsequent installations will use the exact same versions.
+
+
+====================================================================================================
+
+9) Quesion : Why is ruby used so typically with Ios
+
+Answer : 
+Ruby is commonly used in iOS development primarily due to CocoaPods, a dependency manager for Swift and Objective-C projects. CocoaPods is written in Ruby, which has led to the Ruby language being a significant part of the iOS development ecosystem. Here are several reasons why Ruby, through CocoaPods, became pivotal for iOS development:
+
+1. Ease of Use and Community Adoption
+Ruby is known for its elegant syntax and ease of use. When CocoaPods was introduced, its Ruby-based DSL (Domain-Specific Language) made it simple for developers to define and manage dependencies. The Ruby community's strong emphasis on developer happiness and productivity resonated well with the needs of iOS developers, who often deal with complex project setups and configurations.
+
+2. CocoaPods' Success
+Dependency Management: Before CocoaPods, managing libraries and frameworks in iOS projects was more manual and error-prone. CocoaPods provided a much-needed solution that automated the integration of third-party code, handling updates and compatibility issues seamlessly.
+Community Support: CocoaPods quickly gained a strong following because it addressed a universal pain point for iOS developers. The large catalog of available pods (packages) encouraged more developers to adopt it.
+3. Integration with Xcode
+CocoaPods integrates smoothly with Xcode, the IDE used by most iOS developers. It manages library dependencies without requiring significant changes to the way Xcode projects are structured. This seamless integration made it easier for developers to adopt CocoaPods without disrupting their existing workflows.
+
+4. Maturity and Reliability
+Over time, CocoaPods has matured into a reliable tool that supports even the most complex iOS projects. Its widespread use in commercial and open-source projects further cemented its position as a critical tool in the iOS development landscape.
+
+5. Automation and Scripting
+Ruby's capabilities extend beyond just CocoaPods. Many iOS development teams use Ruby scripts to automate repetitive tasks such as setting up new projects, configuring build settings, managing distribution certificates, and automating builds and deployments. Ruby's readability and the robust ecosystem of development tools make it a good choice for these scripting tasks.
+
+6. RubyGems and Ecosystem
+The broader Ruby community and its ecosystem provide an excellent foundation for building and distributing tools like CocoaPods. RubyGems, the Ruby package manager, simplifies the distribution and installation of Ruby software, making it easy for developers to extend CocoaPods or create their own tools and plugins.
+
+Conclusion
+While Swift and Objective-C are the primary languages for writing iOS apps, Ruby has carved out a significant role in the iOS development process due to CocoaPods and the ease of automating various development tasks with Ruby scripts. This use of Ruby helps streamline many aspects of iOS project management and deployment, enhancing productivity and reducing potential for errors in complex app development environments.
+
+====================================================================================================
+
+10) index.js : React native out of the box does not know which file to load up.
+
+Hey React Native, The first file i will open is appName and i will open it up from App.
+
+/**
+ * @format
+ */
+
+import {AppRegistry} from 'react-native';
+import App from './App';
+import {name as appName} from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);
+
+So app.json is where the naming is coming from and whole is coming in App.
+
+The AppRegistry is a crucial part of a React Native application. It serves as the entry point for registering the root component of your app with the React Native system. Here’s a breakdown of what AppRegistry.registerComponent(appName, () => App); does and why it's important: (GPT)
+
+What is AppRegistry?
+AppRegistry is the JavaScript entry point to running all React Native apps. It tells React Native which component is the root of your app, so React Native knows where to start rendering. Essentially, it hooks your top-level component into the native system.
+
+
+
+====================================================================================================
+
+
+11) metro.config.js : 
+
+The metro.config.js file is a configuration file used by Metro, the JavaScript bundler for React Native. Metro handles the task of bundling your JavaScript code, assets, and any other resources into a single package that can be executed by a React Native app. The metro.config.js file allows you to customize various aspects of how Metro operates, from asset resolutions to transformer configurations.
+
+=>Purpose of metro.config.js
+Customize the Bundling Process: This file lets you adjust how Metro bundles your code, including settings for minification, source mapping, and asset handling.
+Optimization and Performance: You can tweak Metro's behavior to optimize performance and efficiency, crucial for larger projects with complex dependencies.
+Environment Specific Configurations: It can also be used to specify different configurations based on development, testing, or production environments.
+
+=>Common Configurations in metro.config.js
+Here are some of the key configurations you might specify in a metro.config.js file:
+
+Transformers: Configure how source files are transformed. This includes specifying Babel plugins, customizing how JavaScript is compiled, and more.
+
+Resolvers: Define how modules are resolved. For example, you can specify custom file extensions for your modules, set up aliases for directories, or handle platform-specific module versions.
+
+Server Configuration: Adjust settings for the Metro server, such as the port it runs on and configurations for live reloading or hot module replacement.
+
+Asset Extensions: List which file types should be treated as assets (e.g., images, fonts).
+
+Watch Folders: Specify additional folders that Metro should monitor for changes, which is useful in monorepo setups.
+
+Example of metro.config.js
+Here’s an example of what a typical metro.config.js might look like:
+
+const { getDefaultConfig } = require('metro-config');
+
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts }
+  } = await getDefaultConfig();
+
+  return {
+    transformer: {
+      getTransformOptions: async () => ({
+        transform: {
+          experimentalImportSupport: false,
+          inlineRequires: true,
+        },
+      }),
+    },
+    resolver: {
+      assetExts: assetExts.filter(ext => ext !== 'svg'),
+      sourceExts: [...sourceExts, 'svg'],
+    },
+    watchFolders: [
+      // Add additional folders to watch
+    ],
+  };
+})();
+
+=> Explanation of This Configuration
+
+Transform Options: Customizes how the JavaScript transformer works. inlineRequires: true can improve startup time by reducing the time spent parsing and evaluating modules that are not immediately required.
+
+Asset and Source Extensions: Modifies which extensions are treated as source files and which are treated as assets. In this example, svg files are treated as source files, allowing them to be imported directly into your JavaScript code.
+
+Watch Folders: This is where you would specify any additional directories that Metro should watch for changes, beyond the default project src directory. This is useful when your project spans multiple directories outside of the standard structure.
+
+
+
+
+The metro.config.js file is a powerful tool for fine-tuning the behavior of Metro, the bundler used by React Native. By adjusting its settings, developers can significantly impact the performance and efficiency of their app development process, tailoring the build process to the specific needs of their project.

@@ -1,0 +1,61 @@
+Path : 
+When we install something, we can find it and we can start it. But this is not same for windows. When program A wants to call program B, it checks for PATH of B. We have to set the PATH for B so A can find it. We do it in the Path variables.
+
+
+Search for Enviroment Variables in search. Edit enviroment variables.
+
+Go to System variables -> Write [key - value] ( System variables Preffered )
+
+Ex. JAVA_HOME : 'path of java copied from toolbar'
+
+
+
+When we run RN(React -native) there are some enviroment variables that are expected to be there. And may crash the installation of RN.
+
+Path of Android SDK also we need to add in the PATH Variables.
+
+C:\Users\divip\AppData\Local\Android\Sdk
+C:\Users\divip\AppData\Local\Android\Sdk\platform-tools
+C:\Users\divip\AppData\Local\Android\Sdk\emulator
+
+
+These paths need to be added as React Native will be looking out for it during its installation.
+
+
+npx -> node package executioner.
+
+npx @react-native-community/cli@latest init AwesomeProject
+
+
+npx react-native run-android
+
+
+Since our paths were set we dont need to create any locale.properties file. But later we will do by that its lazy way.
+
+Dev server starts on 8081  and Welcome to Metro is shown.
+
+
+
+
+============
+Metro is the JavaScript build tool for React Native. To start the Metro development server, run the following from your project folder:
+
+npm start
+
+============
+
+
+Questions and Answers of Chatgpt : 
+
+Q : What are the two terminals that are opened when i do npx run android in react-native ? 
+
+Ans : 
+When you run the command npx react-native run-android in a React Native project, it typically opens two terminal windows or sessions:
+
+Metro Bundler Terminal: This terminal runs the Metro Bundler, which is a JavaScript bundler for React Native. It compiles the JavaScript code, handles module resolution, and serves the bundled assets to the React Native app during development. The Metro Bundler provides a QR code (if developing with Expo) or a direct connection for physical devices and simulators/emulators to load and update the application.
+
+React Native Build Process Terminal: This terminal executes the command to build the Android app and installs it on the emulator or a connected Android device. It outputs logs related to the build process, including compilation messages, errors, and warnings from Gradle and the Android toolchain.
+
+These terminals provide feedback and logs necessary for developing and debugging the application.
+
+

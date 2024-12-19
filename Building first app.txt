@@ -1,0 +1,58 @@
+adb devices : This command list all devices that are connected.
+
+(Gpt) 
+ADB (Android Debug Bridge) is a versatile command-line tool that lets developers communicate with a device (an emulator or a real device connected via USB). It is used for tasks like installing and debugging apps, viewing logs, and managing device state.
+
+Here’s a detailed step-by-step explanation of what happens when you run your React Native app on an Android emulator:
+
+=>Starting the Development Process:
+
+You run a command like npx react-native run-android.
+This command triggers multiple processes behind the scenes.
+
+=>Metro Bundler Starts:
+
+Metro initializes and starts bundling your JavaScript code into a single file. This server runs in the background and listens on a default port (usually 8080) for any requests from the app for the JavaScript bundle.
+
+=>Gradle Build Process:
+
+The React Native CLI uses Gradle to build the native part of your application. This involves compiling Java/Kotlin code, integrating resources, and packaging everything into an APK.
+Gradle Sync happens automatically as part of this process, ensuring all dependencies are correctly configured and available.
+
+
+=>Installing the APK via ADB:
+
+Once the APK is built, ADB is used to install this APK on the Android emulator. ADB communicates with the emulator to transfer the APK file and execute the installation.
+
+=>Launching the App on the Emulator:
+
+ADB also initiates the command to launch the installed app on the emulator.
+
+=>Emulator Fetches JavaScript Bundle:
+
+When the app starts on the emulator, it requests the JavaScript bundle from the Metro server. This is typically via the local network using a URL like http://localhost:8080/index.bundle?platform=android.
+The emulator uses its network capabilities to fetch this bundle over HTTP from your development machine.
+
+=>Real-time Interaction:
+
+If you have Hot Reloading enabled, any changes you make to your JavaScript code are detected by Metro, which quickly rebundles the code and notifies the app.
+The app then fetches the updated bundle, allowing you to see changes in real-time without restarting the app.
+
+
+Hindi mei samajh jao:
+
+JAb humlog npx run android chalate hai tab do log kaam karna start karte hai.
+Pehla Metro. Metro Humare JS code ko bundle karke rakh leta hai aur post 8081 on kr deta hai ki jo ispe request karega mai usey serve kar dunga.
+Saath hi saath Gradle humare react native ke android code ko build karta hai. Kyuki upar upar se toh hum JS likh rhe hai par internally hum react native dwara diye gaye native code ke abstraction ko hi toh use kr rhe hai. Jab hum <View> likhte hai tab hum native ke ek box ko import karte hai. Isliye Gradle humara android ka part build karta hai aur gradle sync bhi karta hai.
+
+Phir jab ye app build ho jaati hai toh hum isey emulator ko bhej dete hai. Yaha pe ADB isey proper install karta hai as an APK.
+
+Jab hum is APK ko kholte hai tab humara metro dwara bundled code request hota hai emulator dwara. Aur phir HMR se updats bhi handle ho jati hai.
+
+
+(Gpt End) 
+
+
+
+
+

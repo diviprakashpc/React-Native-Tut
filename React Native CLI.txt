@@ -1,0 +1,141 @@
+What is react native cli ?
+
+Answer: 
+
+The React Native CLI, or Command Line Interface, is a tool that enables developers to interact with React Native directly from the command line. It provides the necessary utilities to initialize, configure, and interact with React Native projects. Here’s an overview of what the React Native CLI does and why it's essential for developers working with React Native:
+
+Key Functions of React Native CLI : 
+
+1) Project Initialization:
+
+The CLI can create a new React Native project with all the necessary files and configurations. This is typically done using the command npx react-native init ProjectName, which sets up a new project directory with everything needed to get started.
+
+2) Running the App:
+
+For Android: npx react-native run-android — This command compiles the app's code, launches the necessary Android emulator or connects to a physical device, and installs the app for testing.
+
+For iOS: npx react-native run-ios — Similar to the Android command, this compiles the app for iOS, launches an iOS simulator, and installs the app.
+
+3) Linking Libraries:
+
+Older versions of React Native required manual linking for third-party libraries that included native code. The CLI provided commands to automate the linking process. However, with recent React Native versions, most linking is automatic thanks to auto-linking features introduced in React Native 0.60 and above.
+
+4) Building the App:
+
+The CLI facilitates the build process through integration with native build tools like Gradle for Android and Xcode for iOS, automating many of the steps required to compile the native code.
+
+5) Debugging and Development Tools:
+
+It includes commands for starting the Metro bundler explicitly, logging, and more, which are helpful during development and debugging.
+
+
+=> Why React Native CLI is Important ? 
+
+Direct Control: It gives developers direct control over the development and build process, making it easier to manage various aspects of application development without needing to go through an IDE.
+
+Automation: Many repetitive tasks such as building, running, and testing on different platforms can be automated through simple commands.
+
+Flexibility: Developers can script and customize their development workflows using the CLI, integrating with other tools and scripts as needed.
+
+
+==CLI vs. Expo CLI==
+It's worth noting that there are two primary ways to work with React Native:
+
+React Native CLI: This is the default method described above, where you have full control over the native code, making it suitable for complex applications that require native modules not supported by Expo.
+
+Expo CLI: This is an alternative to the React Native CLI that provides a set of tools and services built around React Native for developers who want a more managed app development experience. Expo abstracts many of the complexities of dealing with native code but comes with its own limitations, such as reliance on the Expo ecosystem unless you "eject" to bare React Native.
+
+In summary, the React Native CLI is an essential tool for developers looking to leverage the full capabilities of React Native, providing a powerful interface to manage the lifecycle and operations of React Native applications directly from the command line.
+
+
+Question : But how does a normal terminal becomes a react native cli ?
+
+Answer : 
+
+The terminal itself doesn't specifically become a "React Native CLI"; rather, the terminal acts as an interface to execute commands provided by the React Native CLI toolset. The React Native CLI is installed as a set of commands that can be accessed through the terminal to manage and interact with React Native projects. Here's how it works and how you can use your normal terminal to run React Native CLI commands:
+
+Installation and Setup:
+
+Node.js and npm: Before you can use the React Native CLI, you need Node.js installed on your computer. Node.js comes with npm (Node Package Manager), which is used to install the React Native CLI.
+
+Installing React Native CLI: 
+
+You typically don’t need to install the React Native CLI globally on your machine. Instead, when you want to use React Native CLI commands like react-native init or react-native run-android, you prefix them with npx. NPX is a package runner tool that comes with npm 5.2+ and lets you run packages without installing them globally. For example:
+
+npx react-native init MyNewProject
+This command temporarily installs the React Native CLI to generate a new project, and then it removes the CLI toolset.
+
+=> How the Terminal Interfaces with React Native CLI:
+
+Command Execution: When you type a command in your terminal and press enter, the terminal processes this command. If the command is associated with React Native (and prefixed by npx if not globally installed), the terminal knows to execute it using the Node.js environment.
+
+Environment Path: For globally installed packages, the Node.js npm command installs packages into a directory that’s included in your system's PATH environment variable. This means any terminal you open can access and execute the React Native CLI commands if they are globally installed.
+
+Script Execution: Underneath, the React Native CLI commands are scripts written primarily in JavaScript, which Node.js can execute. When you run these commands, Node.js interprets the JavaScript and performs the necessary actions, such as creating files, starting servers, compiling code, etc.
+
+=> Practical Use:
+Daily Operations: Developers use the terminal to invoke these commands during development. Whether it’s starting a project, running it on a simulator or device, or installing third-party libraries, these commands are entered into the terminal.
+Feedback and Logs: The terminal also provides a direct output log for these commands, giving immediate feedback about what the CLI is doing, what errors might be occurring, and other runtime logs.
+Example Workflow
+Here’s a simple workflow showing how a terminal is used with the React Native CLI:
+
+Open your terminal.
+Navigate to the directory where you want to create a new React Native project.
+npx react-native init MyProject
+This creates a new directory in your current path with all the necessary React Native files.
+Navigate into your project directory:
+cd MyProject
+Start the React Native Metro Bundler and run the app on an emulator:
+npx react-native run-android
+or
+npx react-native run-ios
+In summary, the terminal acts as a powerful interface to execute React Native CLI commands, allowing developers to efficiently manage and interact with React Native projects. The "magic" happens through the integration of Node.js, npm (or npx), and the scripts that make up the React Native CLI.
+
+Question : What change does terminal see and realize that now i need to work as react native cli
+
+The terminal itself doesn't inherently recognize when it needs to "work as the React Native CLI." Instead, it's the commands you enter into the terminal and how they are executed that determine whether React Native CLI functionalities are invoked. Here’s a breakdown of how this works:
+
+=> How Commands Are Interpreted
+Command Input: When you type a command into your terminal, it doesn't inherently know if it's a React Native CLI command, a command for another program, or a system command.
+
+Path Environment Variable: The terminal uses the PATH environment variable to determine where to look for executables that match the command you've entered. This variable lists directories that the shell searches when executing commands.
+
+Node.js and NPX: For commands that involve React Native CLI, if you are using npx (which is recommended for running React Native CLI commands without needing a global installation), you are actually invoking the NPX executable installed with Node.js. 
+
+Here's what happens:
+
+NPX: When you run a command like npx react-native run-android, the terminal passes this command to NPX.
+Node.js Execution: NPX checks if react-native-cli is available locally in your project's node_modules directory. If it's not, NPX downloads the React Native CLI from the npm registry and executes it. NPX handles running the correct version of React Native CLI for your project, ensuring that everything operates correctly with the dependencies specified in your project.
+
+Script Execution: Once NPX identifies and sets up the React Native CLI, it runs the CLI as a Node.js script. The CLI then takes over, interpreting your commands (init, run-android, run-ios, etc.) and performing the necessary actions (creating a new project, starting the Metro bundler, launching the app, etc.).
+
+What Does This Mean for the Terminal?
+The terminal is essentially a user interface for your system's shell. It doesn't change its mode of operation based on what you're doing with React Native or any other tool. 
+
+It simply:
+
+Takes your input.
+Looks for the corresponding executable based on the PATH and the command name.
+Executes the command.
+Displays whatever output the command produces back to the screen.
+Terminal's Role in React Native Development
+
+
+=>In the context of React Native development, the terminal:
+
+Launches the React Native CLI: By executing commands prefixed by npx, which temporarily installs and runs React Native CLI commands.
+Provides Feedback: It shows logs, errors, and other outputs from the React Native CLI, Metro Bundler, or the Android/iOS build process.
+Allows Direct Interaction: Developers can directly interact with their development environment, managing projects, dependencies, builds, and executions.
+
+
+Example
+Here’s how you might typically use the terminal for a React Native project:
+
+Open the terminal.
+Navigate to your project directory.
+Type npx react-native run-ios to test your app on an iOS simulator.
+The terminal, through NPX and Node.js, interprets this command, runs the React Native CLI, and the CLI processes the command to build your app and launch the iOS simulator.
+
+
+In summary, the terminal acts as a consistent interface for executing commands. It doesn’t change how it functions; it's the commands themselves, and the executables they invoke, that dictate what happens in your development workflow.
+
